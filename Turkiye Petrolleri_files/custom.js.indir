@@ -1,0 +1,50 @@
+$(document).ready(function () {
+	'use strict';
+
+	$('.test-step .next-btn').on('click', function (e) {
+		e.preventDefault();
+		$(this).parents('.test-step').fadeOut(500);
+		setTimeout(function () {
+			$(this).parents('.test-step').next().addClass("active");
+		}.bind(this), 800)
+	});
+
+	$('.test-step label').on('click', function (e) {
+		setTimeout(function () {
+			$(this).parents('.test-step').fadeOut(500);
+			setTimeout(function () {
+				$(this).parents('.test-step').next().addClass("active");
+			}.bind(this), 800)
+		}.bind(this), 500)
+	})
+	$('#video_main').on('click', function (e) {
+		$('#video_player').prop('muted', false);
+	});
+
+
+	$('.test-step .prev-btn').on('click', function (e) {
+		e.preventDefault();
+		$(this).parents('.test-step').prev().addClass('active');
+		$(this).parents('.test-step').removeClass('active');
+	});
+
+	$('#start-menu').one('click', function (e) {
+		e.preventDefault();
+		$(this).parents('.test-step').fadeOut(500);
+		setTimeout(function () {
+			$(this).parents('.test-step').next().addClass("active");
+		}.bind(this), 800)
+	});
+
+	$('.btn-next, input[type="radio"]').click(function () {
+
+		var result5 = "";
+
+		result5 += "|1)" + $('input[name="question_1"]:checked').val();
+		result5 += "|2)" + $('input[name="question_2"]:checked').val();
+		result5 += "|3)" + $('input[name="question_3"]:checked').val();
+
+		$('#AfiilateUser').val(result5);
+
+	});
+})
