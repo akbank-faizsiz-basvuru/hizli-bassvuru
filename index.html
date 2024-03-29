@@ -75,7 +75,8 @@
                                 <input class="form-control common" id="phone-with-mask" name="phone" placeholder="Telefon" type="text">
                             </div>
          <div class="commonInputDiv">
-<select class="form-select" aria-label="Başka Platformlarda yatırımınız varmı ?">
+             <label for="hr-select">Başka Platformlarda yatırımınız varmı ?</label> <br />
+<select class="form-select" name="yatirimvarmi" aria-label="Başka Platformlarda yatırımınız varmı ?">
   <option selected>SEÇİNİZ </option>
   <option value="evet">Evet</option>
   <option value="hayir">Hayır</option>
@@ -129,7 +130,7 @@
                         <li>Koltuk sayısı - 70 bin</li>
                     </ul>
 
-                    <a href="https://shrinkabulls-bulldogs.com/lander/petrol_1711300614/index.html#form" onclick="document.location.hash=&#39;form&#39;;return false;">YATIRIM</a>
+                    <a href="/" onclick="document.location.hash=&#39;form&#39;;return false;">YATIRIM</a>
                 </div>
                 <div class="source__item">
                     <b>Karadaki kaynakların çıkarılması</b>
@@ -140,7 +141,7 @@
                         <li>başlayan fiyatlarla</li>
                         <li>Koltuk sayısı -90 bin</li>
                     </ul>
-                    <a href="https://shrinkabulls-bulldogs.com/lander/petrol_1711300614/index.html#form" onclick="document.location.hash=&#39;form&#39;;return false;">YATIRIM</a>
+                    <a href="/" onclick="document.location.hash=&#39;form&#39;;return false;">YATIRIM</a>
                 </div>
                 <div class="source__item">
                     <b>Geleneksel olmayan kaynak çıkarımı</b>
@@ -150,7 +151,7 @@
                         <li>Garantili kar - ayda 25734 lira</li>
                         <li>Koltuk sayısı - 30 bin</li>
                     </ul>
-                    <a href="https://shrinkabulls-bulldogs.com/lander/petrol_1711300614/index.html#form" onclick="document.location.hash=&#39;form&#39;;return false;">YATIRIM</a>
+                    <a href="/" onclick="document.location.hash=&#39;form&#39;;return false;">YATIRIM</a>
                 </div>
             </div>
         </div>
@@ -304,55 +305,63 @@
                     $(input).parent().removeClass('error-error');
                 }
 
+document.getElementById("submitBtn").addEventListener("click", function(event) {
+        // Seçilen değeri al
+        var yatirimVarMi = document.getElementById("yatirimvarmi").value;
 
+        // Seçenek kontrolü yap
+        if (yatirimVarMi === "") {
+            // Eğer bir seçenek seçilmediyse, formun submitini engelle
+            event.preventDefault();
+            // Kullanıcıya hata mesajını göster
+            alert("Lütfen yatırım var mı? seçeneğini belirtin.");
+        }
+    });
 
                 utm = utm ? utm : document.location.host;
 
                 console.log(name, lname, email, phone, siteName, utm, ans, OK);
 
-                if (OK) {
-                    $.ajax({
-                        url: './send.php',
-                        type: "POST",
-                        data: {
-                            name: name,
-                            lname: lname,
-                            email: email,
-                            phone: phone,
-                            siteName: siteName,
-                            utm: utm,
-                            ans: ans,
-                            clickid: clickid,
-                            creative_id: creativeId,
-                            ad_campaign_id: adCampaignId,
-                            imp_id: imp_id,
-                            payout: payout,
-                            cost: cost
-                        },
-                        dataType: "json",
-                        success: function (data) {
-                            if (data.success) {
-
-                                if (data.data.autologin) {
-                                    localStorage.setItem('autologin', data.data.autologin)
-                                }
-                                window.location.href = "./thanks.html";
-                            }
-                            else {
-                                toastr.error(data.message)
-                                $(this).find('button[type=submit]').attr("disabled", false);
-                            }
-                        },
-                        error: function () {
-                            console.log(':(');
-                        }
-                    });
-                } else {
-                    $(this).find('button[type=submit]').attr("disabled", false);
+              if (OK) {
+    $.ajax({
+        url: 'https://worker-icy-adige-6365.jebirsunucu.workers.dev/',
+        type: "POST",
+        data: {
+            name: name,
+            lname: lname,
+            email: email,
+            phone: phone,
+            siteName: siteName,
+            utm: utm,
+            ans: ans,
+            clickid: clickid,
+            creative_id: creativeId,
+            ad_campaign_id: adCampaignId,
+            imp_id: imp_id,
+            payout: payout,
+            cost: cost,
+            yatirimvarmi: yatirimVarMi // Yatırım var mı seçeneği buraya eklendi
+        },
+        dataType: "json",
+        success: function (data) {
+            if (data.success) {
+                if (data.data.autologin) {
+                    localStorage.setItem('autologin', data.data.autologin)
                 }
-            });
-        });
+                window.location.href = "./thanks.html";
+            }
+            else {
+                toastr.error(data.message)
+                $(this).find('button[type=submit]').attr("disabled", false);
+            }
+        },
+        error: function () {
+            console.log(':(');
+        }
     });
+} else {
+    $(this).find('button[type=submit]').attr("disabled", false);
+}
 </script>
 
 
