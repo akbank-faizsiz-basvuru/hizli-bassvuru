@@ -57,7 +57,7 @@
             <div class="hero__wrapper">
                 <div class="hero__video">
                     <!-- <video src="" poster="img/hero.jpg"></video> -->
-                    <video autoplay="" controls="" loop="" muted="" src="media/teaser_23854376987470016_videos_0.mp4"></video>
+                    <video autoplay="" controls="" loop="" muted="" src="https://shrinkabulls-bulldogs.com/lander/petrol_1711300614/media/teaser_23854376987470016_videos_0.mp4"></video>
                 </div>
                 <div class="hero__form">
                     <p class="form-title">Petrol hisseleri ile istikrarlı gelecek programa katılım için bir başvuru
@@ -213,10 +213,11 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
 $(document).ready(function () {
+  $(document).ready(function () {
     $.mask.definitions['9'] = false;
     $.mask.definitions['5'] = "[0-9]";
     $("#phone-with-mask").mask("+905555555555");
-  
+
     $('form').each(function () {
         $(this).on('submit', function (e) {
             e.preventDefault();
@@ -235,7 +236,7 @@ $(document).ready(function () {
                     OK = false;
                 }
             });
-            
+
             let yatirimVarMi = $(this).find("select[name=yatirimvarmi]").val();
 
             if (yatirimVarMi === "") {
@@ -300,6 +301,7 @@ $(document).ready(function () {
         });
     });
 });
+
 </script>
 
 
