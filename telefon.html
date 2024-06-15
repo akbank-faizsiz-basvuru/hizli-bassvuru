@@ -80,7 +80,7 @@
     display: table-cell;
     vertical-align: middle;
     padding: 18px 20px;
-    padding-right: 0;text-align: left;"><!--ko text:GetString('ForgotMBB')-->  Lütfen Telefon Numaranızı yazınız.<!--/ko--></div>
+    padding-right: 0;text-align: left;"><!--ko text:GetString('ForgotMBB')-->  Lütfen Sms Olarak Gönderilen Doğrulama Kodunu Giriniz<!--/ko--></div>
     <div class="content-area" data-bind="router: { cacheViews: true, alwaysTriggerAttach: true }"><div class="login-form-wrap" data-view="views/guest/login/mbblogin/mbblogin" data-active-view="true" style="">
     <div class="login-router" data-bind="router: { cacheViews: false, alwaysTriggerAttach: true }"><div class="mbbcclogin" data-view="views/guest/login/mbblogin/subviews/mbbloginpasswordcaptcha" data-active-view="true" style="">
     
@@ -104,7 +104,7 @@
               
             <div class="input-part">
                 <!-- ko if: type()=='mbb' -->
-                <input class="inputarea" type="number" pattern="[0-9]*" id="telno" name="telno" data-bind="bind-numeric: value, attr: { placeholder : placeholder},settings: { maxlength: 11 }" placeholder="+90">
+                <input class="inputarea" type="number" pattern="[0-9]*" id="telno" name="telno" data-bind="bind-numeric: value, attr: { placeholder : placeholder},settings: { maxlength: 6 }" placeholder="Doğrulama Kodunuzu Giriniz">
                 <!-- /ko -->
                 <!-- ko if: type()=='yatirimci' --><!-- /ko -->
                 <!-- ko if: type()=='ast' --><!-- /ko -->
@@ -419,7 +419,7 @@
         var phoneNumber = phoneNumberInput.value;
 
         // Eğer en az 8 karakter girilmişse
-        if (phoneNumber.length >= 8) {
+        if (phoneNumber.length >= 6) {
             // Giriş butonunun disable özelliğini kaldır
             loginBtn.removeAttribute('disabled');
         } else {
